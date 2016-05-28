@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onDetachedFromWindow() {
+        protected void onDetachedFromWindow(    ) {
             super.onDetachedFromWindow();
             Log.d(TAG,"MyButton - onDetachedFromWindow");
         }
@@ -64,16 +66,37 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
 
-        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.rlTop);
+//        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.rlTop);
 
-        MyButton myButton = new MyButton(this);
-        myButton.setText("test!!");
+//        MyButton myButton = new MyButton(this);
+//        myButton.setText("test!!");
+//
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.dp60),
+//                getResources().getDimensionPixelSize(R.dimen.dp60));
+//        layoutParams.addRule(RelativeLayout.BELOW, R.id.tvHello);
+//
+//        relativeLayout.addView(myButton,layoutParams);
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.dp60),
-                getResources().getDimensionPixelSize(R.dimen.dp60));
-        layoutParams.addRule(RelativeLayout.BELOW, R.id.tvHello);
+        WrapLayout wrapLayout = (WrapLayout)findViewById(R.id.wlTop);
+//        String[] strings = { "test1", "test2","test3","test4","test5"};
+//        String[] strings = { "test1", "test2","test3","test4"};
+//        String[] strings = { "test1", "test2","test3"};
+//        String[] strings = { "test1", "test2"};
+        String[] strings = { "てｓｔ１", "てｓｔ２", "てｓｔ３", "てｓｔ４", "てｓｔ５", "てｓｔ６", "てｓｔ７", "てｓｔ８", "てｓｔ９", "てｓｔ１０", "てｓｔ１１１１１１a", "てｓｔ１１１", "てｓｔ２３４あうぇｒぱおう３ｐ４おう３ｐ４２４３２あをいる２３４"};
+        int idx = R.id.wlTop + 1;
+        for(String str : strings){
+            TextView textView = new TextView(this);
+            textView.setText(str);
+            textView.setId(idx);
+            textView.setSingleLine(true);
+            textView.setEllipsize(TextUtils.TruncateAt.END);
+            textView.setMaxWidth(1080);
 
-        relativeLayout.addView(myButton,layoutParams);
+            wrapLayout.addView(textView);
+
+            Log.d(TAG,str + "is added.");
+            idx++;
+        }
 
 
 
