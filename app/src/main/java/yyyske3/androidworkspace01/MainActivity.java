@@ -4,14 +4,18 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,22 +70,35 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
 
-//        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.rlTop);
+        setWrapLayout();
 
-//        MyButton myButton = new MyButton(this);
-//        myButton.setText("test!!");
-//
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.dp60),
-//                getResources().getDimensionPixelSize(R.dimen.dp60));
-//        layoutParams.addRule(RelativeLayout.BELOW, R.id.tvHello);
-//
-//        relativeLayout.addView(myButton,layoutParams);
+        ImageView iv = (ImageView)findViewById(R.id.iv_search);
 
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_main, popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(MainActivity.this, "menu is tap!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+
+            }
+        });
+
+
+    }
+
+    /**
+     * WrapLayout関係のあれこれ
+     */
+    private void setWrapLayout() {
         WrapLayout wrapLayout = (WrapLayout)findViewById(R.id.wlTop);
-//        String[] strings = { "test1", "test2","test3","test4","test5"};
-//        String[] strings = { "test1", "test2","test3","test4"};
-//        String[] strings = { "test1", "test2","test3"};
-//        String[] strings = { "test1", "test2"};
         String[] strings = { "てｓｔ１", "てｓｔ２", "てｓｔ３", "てｓｔ４", "てｓｔ５", "てｓｔ６", "てｓｔ７", "てｓｔ８", "てｓｔ９", "てｓｔ１０", "てｓｔ１１１１１１a", "てｓｔ１１１", "てｓｔ２３４あうぇｒぱおう３ｐ４おう３ｐ４２４３２あをいる２３４"};
         int idx = R.id.wlTop + 1;
         for(String str : strings){
@@ -97,9 +114,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG,str + "is added.");
             idx++;
         }
-
-
-
     }
 
     @Override
