@@ -1,25 +1,32 @@
 package yyyske3.androidworkspace01;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity implements View.OnLongClickListener{
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    @Override
+    public boolean onLongClick(View v) {
+        Log.d(TAG, "LongClicked");
+        Intent intent = new Intent(MainActivity.this, IconSettingActivity.class);
+        startActivity(intent);
+        return true;
+    }
 
     public class MyButton extends Button{
 
@@ -90,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        LinearLayout ll_main = (LinearLayout)findViewById(R.id.ll_main);
+        ll_main.setOnLongClickListener(this);
+
 
 
     }
